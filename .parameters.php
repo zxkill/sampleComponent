@@ -7,15 +7,15 @@ use Bitrix\Main\Localization\Loc;
 
 Loc::loadMessages(__FILE__);
 
-if(!CModule::IncludeModule("iblock"))
+if (!CModule::IncludeModule("iblock"))
     return;
 
-$arTypesEx = CIBlockParameters::GetIBlockTypes(array("-"=>" "));
+$arTypesEx = CIBlockParameters::GetIBlockTypes(array("-" => " "));
 
-$arIBlocks=array();
-$db_iblock = CIBlock::GetList(array("SORT"=>"ASC"), array("SITE_ID"=>$_REQUEST["site"], "TYPE" => ($arCurrentValues["IBLOCK_TYPE"]!="-"?$arCurrentValues["IBLOCK_TYPE"]:"")));
-while($arRes = $db_iblock->Fetch())
-    $arIBlocks[$arRes["ID"]] = "[".$arRes["ID"]."] ".$arRes["NAME"];
+$arIBlocks = array();
+$db_iblock = CIBlock::GetList(array("SORT" => "ASC"), array("SITE_ID" => $_REQUEST["site"], "TYPE" => ($arCurrentValues["IBLOCK_TYPE"] != "-" ? $arCurrentValues["IBLOCK_TYPE"] : "")));
+while ($arRes = $db_iblock->Fetch())
+    $arIBlocks[$arRes["ID"]] = "[" . $arRes["ID"] . "] " . $arRes["NAME"];
 
 $arComponentParameters = array(
     'PARAMETERS' => array(
@@ -36,13 +36,17 @@ $arComponentParameters = array(
             "ADDITIONAL_VALUES" => "Y",
             "REFRESH" => "Y",
         ),
+        "COUNT_ELEM" => array(
+            "PARENT" => "BASE",
+            "NAME" => Loc::getMessage("COUNT_ELEM"),
+            "TYPE" => "STRING",
+            "DEFAULT" => '1',
+        ),
         "CACHE_TIME" => array(
             "PARENT" => "BASE",
             "NAME" => Loc::getMessage("CACHE_TIME"),
             "TYPE" => "STRING",
-            "VALUES" => $cacheTime,
             "DEFAULT" => '3600000',
-            "REFRESH" => "Y",
         ),
     )
 );

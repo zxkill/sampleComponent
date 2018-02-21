@@ -2,11 +2,7 @@
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     die();
 }
-
 use Bitrix\Main\Localization\Loc;
-use \Bitrix\Main\Page\Asset;
-
-Asset::getInstance()->addCss(__DIR__ . "/styles.css");
 Loc::loadMessages(__FILE__);
 ?>
 <? if (isset($arResult['ITEMS']) && !empty($arResult['ITEMS'])) { ?>

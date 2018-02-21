@@ -7,6 +7,15 @@ class sampleComponent extends CBitrixComponent
         $arSelect = Array("ID", "IBLOCK_ID", "NAME", "PREVIEW_TEXT"); //массив выбраных полей
         $arFilter = Array("IBLOCK_ID" => $this->arParams['IBLOCK_ID'], "ACTIVE_DATE" => "Y", "ACTIVE" => "Y"); //фильтр выборки
         $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize" => $this->arParams['COUNT_ELEM']), $arSelect); //получаем один элемент
+        global $APPLICATION;
+        $arButtons = CIBlock::GetPanelButtons(
+            $this->arParams['IBLOCK_ID'],
+            0,
+            0,
+            array("SECTION_BUTTONS"=>false)
+        );
+        if($APPLICATION->GetShowIncludeAreas())
+            $this->addIncludeAreaIcons(CIBlock::GetComponentMenu($APPLICATION->GetPublicShowMode(), $arButtons)); //кнопка добавить
         while ($arItem = $res->GetNext()) {
             $arButtons = CIBlock::GetPanelButtons(
                 $arItem["IBLOCK_ID"],
@@ -14,8 +23,8 @@ class sampleComponent extends CBitrixComponent
                 0,
                 array("SECTION_BUTTONS" => false, "SESSID" => false)
             );
-            $arItem["EDIT_LINK"] = $arButtons["edit"]["edit_element"]["ACTION_URL"];
-            $arItem["DELETE_LINK"] = $arButtons["edit"]["delete_element"]["ACTION_URL"];
+            $arItem["EDIT_LINK"] = $arButtons["edit"]["edit_element"]["ACTION_URL"];  //кнопка изменить
+            $arItem["DELETE_LINK"] = $arButtons["edit"]["delete_element"]["ACTION_URL"]; //кнопка удалить
             $this->arResult['ITEMS'][] = $arItem;
         }
     }

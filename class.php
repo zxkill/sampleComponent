@@ -4,9 +4,17 @@ class sampleComponent extends CBitrixComponent
 {
     function getData() //наша фукнция, где будем производить какие-то действия
     {
+        //==параметры пагинации
+        $arNavParams = array(
+            "nPageSize" => $this->arParams['COUNT_ELEM'],
+            "bDescPageNumbering" => $this->arParams['PAGER_NAME'],
+            "bShowAll" => $this->arParams['PAGER_SHOW_ALL'],
+        );
+        //====
         $arSelect = Array("ID", "IBLOCK_ID", "NAME", "PREVIEW_TEXT"); //массив выбраных полей
         $arFilter = Array("IBLOCK_ID" => $this->arParams['IBLOCK_ID'], "ACTIVE_DATE" => "Y", "ACTIVE" => "Y"); //фильтр выборки
-        $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize" => $this->arParams['COUNT_ELEM']), $arSelect); //получаем один элемент
+        $res = CIBlockElement::GetList(Array(), $arFilter, false, $arNavParams, $arSelect);
+        $this->arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, 'Баннеры', $this->arParams['PAGER_TEMPLATE'], $this->arParams['PAGER_SHOW_ALL']); //получаем пагинацию
         global $APPLICATION;
         $arButtons = CIBlock::GetPanelButtons(
             $this->arParams['IBLOCK_ID'],

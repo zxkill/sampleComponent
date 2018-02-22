@@ -18,5 +18,6 @@ Loc::loadMessages(__FILE__);
             <?
         }
         ?>
+        <?= $arResult["NAV_STRING"] ?>
     </div>
 <? } ?>

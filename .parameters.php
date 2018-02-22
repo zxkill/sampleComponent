@@ -40,7 +40,19 @@ $arComponentParameters = array(
             "PARENT" => "BASE",
             "NAME" => Loc::getMessage("COUNT_ELEM"),
             "TYPE" => "STRING",
-            "DEFAULT" => '1',
+            "DEFAULT" => '10',
+        ),
+        "PAGER_SHOW_ALL" => array(
+            "PARENT" => "BASE",
+            "NAME" => Loc::getMessage("PAGER_SHOW_ALL"),
+            "TYPE" => "CHECKBOX",
+            "DEFAULT" => 'N',
+        ),
+        "PAGER_NAME" => array(
+            "PARENT" => "BASE",
+            "NAME" => Loc::getMessage("PAGER_NAME"),
+            "TYPE" => "STRING",
+            "DEFAULT" => '.default',
         ),
         "CACHE_TIME" => array(
             "PARENT" => "BASE",
